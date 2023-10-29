@@ -27,29 +27,34 @@
 #include "ppos_data.h"		// estruturas de dados necessárias
 
 // funções gerais ==============================================================
+void task_set_eet(task_t* task, int et) ;
+
+int task_get_eet(task_t* task) ;
+
+int task_get_ret(task_t* task) ;
 
 /*
 *** IMPORTANTE ***
-As funções before_* e after_* devem ser implementadas nos respectivos arquivos *.inc. 
+As funções before_* e after_* devem ser implementadas nos respectivos arquivos *.inc.
 Ex. before_ppos_init() e after_ppos_init() devem ser implementados no arquivo ppos_init.inc
 
 As funções before_* são chamadas na primeira linha de código da função.
 Nao existe nenhuma variavel ou estrutura de dados inicializada antes que essa funcao eh chamada.
 
-As funcoes after_* são chamadas apos todas as variaveis e estruturas de dados do PPOS 
+As funcoes after_* são chamadas apos todas as variaveis e estruturas de dados do PPOS
 estarem alocadas/desalocadas e inicializadas dentro do contexto e dos objetivos
-individuais de cada função. 
+individuais de cada função.
 Essas funcoes nao sao necessariamente o ultimo comando a ser executado dentro do contexto
 da funcao base.
 Ex. a função after_task_create()) eh chamada após todas as variaveis e estruturas de dados
-da tarefa estarem alocadas e devidademente inicializadas. Após o retorno dessa funcao, a 
+da tarefa estarem alocadas e devidademente inicializadas. Após o retorno dessa funcao, a
 nova tarefa é incluída na fila de tarefas prontas.
 */
 
 // Inicializa o sistema operacional; deve ser chamada no inicio do main()
 void ppos_init ();
 void before_ppos_init ();
-void after_ppos_init (); // Após o retorno dessa funcao, o PPOS troca imediatamente 
+void after_ppos_init (); // Após o retorno dessa funcao, o PPOS troca imediatamente
                          // o contexto para o despachante de tarefas.
 
 // gerência de tarefas =========================================================
@@ -65,13 +70,13 @@ void after_task_create (task_t *task );  // Após o retorno dessa funcao, a nova
 // Termina a tarefa corrente, indicando um valor de status encerramento
 void task_exit (int exitCode) ;
 void before_task_exit ();
-void after_task_exit (); // Após o retorno dessa funcao, eh realiada a troca de contexto para 
+void after_task_exit (); // Após o retorno dessa funcao, eh realiada a troca de contexto para
                          // a tarefa do dispatcher ou a tarefa main()
 
 // alterna a execução para a tarefa indicada
 int task_switch (task_t *task) ;
 void before_task_switch ( task_t *task ) ;
-void after_task_switch ( task_t *task ) ; // Após o retorno dessa funcao, eh realiada a troca de 
+void after_task_switch ( task_t *task ) ; // Após o retorno dessa funcao, eh realiada a troca de
                                           // contexto [swapcontext()] para a tarefa indicada no parâmetro
 
 
